@@ -1,0 +1,46 @@
+"0","peliculas_por_director <- movies_directors %>%"
+"0","  group_by(director_id) %>%"
+"0","  summarise(num_peliculas = n_distinct(movie_id))"
+"0",""
+"0","actores_por_director <- movies_directors %>%"
+"0","  left_join(roles, by = ""movie_id"") %>%"
+"0","  group_by(director_id) %>%"
+"0","  summarise(num_actores = n_distinct(actor_id))"
+"2","Warning in left_join(., roles, by = ""movie_id"") :"
+"2","
+ "
+"2"," [38;5;232mDetected an unexpected many-to-many relationship between `x` and `y`.
+[36mℹ[38;5;232m Row 2 of `x` matches multiple rows in `y`.
+[36mℹ[38;5;232m Row 119372 of `y` matches multiple rows in `x`.
+[36mℹ[38;5;232m If a many-to-many relationship is expected, set `relationship = ""many-to-many""` to silence this warning.[39m
+"
+"0","genero_comun_por_director <- movies_directors %>%"
+"0","  left_join(movies_genres, by = ""movie_id"") %>%"
+"0","  group_by(director_id, genre) %>%"
+"0","  summarise(num_peliculas_genero = n()) %>%"
+"0","  slice_max(num_peliculas_genero, n = 1, with_ties = FALSE) %>%"
+"0","  ungroup() %>%"
+"0","  select(director_id, genre)"
+"2","Warning in left_join(., movies_genres, by = ""movie_id"") :"
+"2","
+ "
+"2"," [38;5;232mDetected an unexpected many-to-many relationship between `x` and `y`.
+[36mℹ[38;5;232m Row 7 of `x` matches multiple rows in `y`.
+[36mℹ[38;5;232m Row 33555 of `y` matches multiple rows in `x`.
+[36mℹ[38;5;232m If a many-to-many relationship is expected, set `relationship = ""many-to-many""` to silence this warning.[39m
+"
+"1","[38;5;232m`summarise()` has grouped output by 'director_id'. You can override using the `.groups` argument.[39m
+"
+"0","reporte_directores <- directors %>%"
+"0","  left_join(peliculas_por_director, by = c(""id"" = ""director_id"")) %>%"
+"0","  left_join(actores_por_director, by = c(""id"" = ""director_id"")) %>%"
+"0","  left_join(genero_comun_por_director, by = c(""id"" = ""director_id""))"
+"0",""
+"0","reporte_directores <- reporte_directores %>%"
+"0","  mutate("
+"0","    num_peliculas = ifelse(is.na(num_peliculas), 0, num_peliculas),"
+"0","    num_actores = ifelse(is.na(num_actores), 0, num_actores),"
+"0","    genre = ifelse(is.na(genre), """", genre)"
+"0","  )"
+"0",""
+"0","print(reporte_directores)"

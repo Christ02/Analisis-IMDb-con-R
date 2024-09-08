@@ -1,0 +1,7 @@
+"0","movies <- read.csv('movies.csv')"
+"0","directors <- read.csv('directors.csv')"
+"0","directors_genres <- read.csv('directors_genres.csv')"
+"0","movies_directors <- read.csv('movies_directors.csv')"
+"0","actors <- read.csv('actors.csv')"
+"0","roles <- read.csv('roles.csv')"
+"0","movies_genres <- read.csv('movies_genres.csv')"

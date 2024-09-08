@@ -1,0 +1,33 @@
+"0","dist_roles_pelicula <- roles %>%"
+"0","  group_by(movie_id) %>%"
+"0","  summarise(n_roles = n_distinct(role)) %>%"
+"0","  group_by(n_roles) %>%"
+"0","  summarise(n_movies = n()) %>%"
+"0","  arrange(n_roles)"
+"0",""
+"0","dist_roles_director <- movies_directors %>%"
+"0","  left_join(roles, by = ""movie_id"") %>%"
+"0","  group_by(director_id) %>%"
+"0","  summarise(n_roles = n_distinct(role)) %>%"
+"0","  group_by(n_roles) %>%"
+"0","  summarise(n_directors = n()) %>%"
+"0","  arrange(n_roles)"
+"2","Warning in left_join(., roles, by = ""movie_id"") :"
+"2","
+ "
+"2"," [38;5;232mDetected an unexpected many-to-many relationship between `x` and `y`.
+[36mℹ[38;5;232m Row 2 of `x` matches multiple rows in `y`.
+[36mℹ[38;5;232m Row 119372 of `y` matches multiple rows in `x`.
+[36mℹ[38;5;232m If a many-to-many relationship is expected, set `relationship = ""many-to-many""` to silence this
+  warning.[39m
+"
+"0","dist_roles_combined <- full_join(dist_roles_pelicula, dist_roles_director, by = ""n_roles"") %>%"
+"0","  arrange(n_roles)"
+"0",""
+"0","dist_roles_combined <- dist_roles_combined %>%"
+"0","  mutate("
+"0","    n_movies = ifelse(is.na(n_movies), 0, n_movies),"
+"0","    n_directors = ifelse(is.na(n_directors), 0, n_directors)"
+"0","  )"
+"0",""
+"0","print(dist_roles_combined)"

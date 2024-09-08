@@ -1,0 +1,6 @@
+"0","avg_genres_per_director <- directors_genres %>%"
+"0","  group_by(director_id) %>%"
+"0","  summarise(total_genres = n()) %>%"
+"0","  summarise(avg_genres = mean(total_genres))"
+"0",""
+"0","avg_genres_per_director"
