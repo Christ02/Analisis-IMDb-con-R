@@ -14,7 +14,7 @@ movies_genres <- read.csv('data/movies_genres.csv')
 ```
 
 ``` r
-# 1.    Información general sobre la base de datos:
+# 1.    Información general sobre la base de datos
 
 total_movies <- movies %>% distinct(id) %>% nrow()
 total_directors <- directors %>% distinct(id) %>% nrow()
