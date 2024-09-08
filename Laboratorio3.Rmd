@@ -12,13 +12,13 @@ library(dplyr)
 ```
 
 ```{r Carga de Datos}
-movies <- read.csv('movies.csv')
-directors <- read.csv('directors.csv')
-directors_genres <- read.csv('directors_genres.csv')
-movies_directors <- read.csv('movies_directors.csv')
-actors <- read.csv('actors.csv')
-roles <- read.csv('roles.csv')
-movies_genres <- read.csv('movies_genres.csv')
+movies <- read.csv('data/movies.csv')
+directors <- read.csv('data/directors.csv')
+directors_genres <- read.csv('data/directors_genres.csv')
+movies_directors <- read.csv('data/movies_directors.csv')
+actors <- read.csv('data/actors.csv')
+roles <- read.csv('data/roles.csv')
+movies_genres <- read.csv('data/movies_genres.csv')
 ```
 
 ```{r Total de Películas y Directores}
