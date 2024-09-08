@@ -6,8 +6,8 @@ Este proyecto realiza un análisis de la distribución de roles, actores, actric
 El análisis se enfoca en contar cuántos roles, actores, actrices y directores participan en cada película y director, así como identificar el género más común de las películas dirigidas por cada director.
 
 ## Estructura de Datos
-movies.csv: Información básica de las películas.
-roles.csv: Relación de actores y sus roles en películas.
-directors.csv: Detalles de los directores.
-movies_directors.csv: Relación entre películas y directores.
-actors.csv: Información sobre los actores y actrices.
+- movies.csv: Información básica de las películas.
+- roles.csv: Relación de actores y sus roles en películas.
+- directors.csv: Detalles de los directores.
+- movies_directors.csv: Relación entre películas y directores.
+- actors.csv: Información sobre los actores y actrices.
