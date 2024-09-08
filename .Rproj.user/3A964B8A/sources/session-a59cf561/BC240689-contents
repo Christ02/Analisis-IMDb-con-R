@@ -2,8 +2,8 @@
 title: "Análisis IMDb con R"
 author: "Christian Barrios"
 date: "`r Sys.Date()`"
-  md_document:
-    variant: gfm
+output: rmarkdown::github_document
+always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +22,7 @@ movies_genres <- read.csv('movies_genres.csv')
 ```
 
 ```{r Total de Películas y Directores}
-
+# 1.	Información general sobre la base de datos:
 
 total_movies <- movies %>% distinct(id) %>% nrow()
 total_directors <- directors %>% distinct(id) %>% nrow()
@@ -37,6 +37,7 @@ print(resumen)
 ```
 
 ```{r Promedio de Géneros por Director}
+# 2.	¿Cuál es el número promedio de géneros por director?
 avg_genres_per_director <- directors_genres %>%
   group_by(director_id) %>%
   summarise(total_genres = n()) %>%
@@ -46,6 +47,7 @@ avg_genres_per_director
 ```
 
 ```{r Reporte por Role}
+# 3.	Genere un nuevo reporte por “Role” con la siguiente información:
 
 peliculas_por_rol <- roles %>%
   group_by(role) %>%
@@ -64,9 +66,11 @@ actrices_por_rol <- roles %>%
   summarise(num_actrices = n_distinct(actor_id))
 
 directores_por_rol <- roles %>%
-  left_join(movies_directors, by = "movie_id") %>% 
-  group_by(role) %>%   
+  left_join(movies_directors %>% group_by(movie_id) %>% summarise(director_id = first(director_id)), by = "movie_id") %>%
+  group_by(role) %>%
   summarise(num_directores = n_distinct(director_id))
+
+
 
 reporte_por_rol <- peliculas_por_rol %>%
   left_join(actores_por_rol, by = "role") %>%
@@ -84,6 +88,8 @@ print(reporte_por_rol)
 ```
 
 ```{r Reporte por Director}
+# 4.	Genere un nuevo reporte con la siguiente información:
+
 peliculas_por_director <- movies_directors %>%
   group_by(director_id) %>%
   summarise(num_peliculas = n_distinct(movie_id))
@@ -113,11 +119,13 @@ reporte_directores <- reporte_directores %>%
     genre = ifelse(is.na(genre), "", genre)
   )
 
-print(reporte_directores)
+print(reporte_directores%>% head(15))
 
 ```
 
 ```{r 5. Distribución de Roles por Película y Director}
+# 5.	Encuentre la distribución de “Roles” por las siguientes dimensiones:
+
 dist_roles_pelicula <- roles %>%
   group_by(movie_id) %>%
   summarise(n_roles = n_distinct(role)) %>%
